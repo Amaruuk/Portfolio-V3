@@ -83,6 +83,11 @@ body {
   height: 100%;
 }
 
+#Content {
+  min-width: 100%;
+  min-height: 100%;
+}
+
 #LeftMenu {
   position: absolute;
   top: 0;

@@ -1,4 +1,5 @@
 const Nav = {
+  isTraveling: false,
   convertAnchors: () => {
     let anchors = document.body.getElementsByTagName('a')
     anchors = Array.prototype.filter.call(anchors, anchor => {
@@ -9,15 +10,30 @@ const Nav = {
       anchor.addEventListener('click', e => {
         e.preventDefault()
 
-        console.log("ding")
         if (anchor.pathname.startsWith("/gallery")) {
           Nav.travelToGallery(() => {
-            window.history.pushState({}, "", anchor.pathname)
-            console.log("should show gallery")
+            Nav.request(anchor.pathname, result => {
+              if (result) {
+                window.history.pushState({
+                  path: anchor.pathname,
+                }, "", anchor.pathname)
+                Nav.setContent(anchor.pathname, result)
+              } else {
+                console.log("bad request!")
+              }
+            }, true)
           })
         } else if (anchor.pathname == "/") {
           Nav.travelToSplash(() => {
-            console.log("should show splash?")
+            Nav.request("/splash", result => {
+              if (result) {
+                window.history.pushState({
+                  path: "/splash",
+                }, "", "/splash")
+              } else {
+                console.log("bad request")
+              }
+            }, true)
           })
         } else {
           window.location.assign(anchor.href)
@@ -26,10 +42,10 @@ const Nav = {
     }
   },
   inGallery: () => {
-    return window.location.pathname.startsWith("/gallery")
+    return document.body.id == 'GalleryView'
   },
   inSplash: () => {
-    return window.location.pathname == "/"
+    return document.body.id == 'SplashView'
   },
   waitForAnimationEnd: (queries, animations, cb) => {
     let done = 0
@@ -40,20 +56,23 @@ const Nav = {
         if (checkDone()) return
       }
 
+      function elEndFunc() {
+        el.removeEventListener("animationend", elEndFunc)
+        checkDone()
+      }
+
       function checkDone() {
         if (++done == queries.length) {
-          queries.forEach(query => {
-            document.querySelector(query).style.setProperty('animation-name', '')
-          })
-          cb()
+          cb(removeAnimations)
           return true
         }
         return false
       }
 
-      function elEndFunc() {
-        el.removeEventListener("animationend", elEndFunc)
-        checkDone()
+      function removeAnimations() {
+        queries.forEach(query => {
+          document.querySelector(query).style.setProperty('animation-name', '')
+        })
       }
 
       el.addEventListener("animationend", elEndFunc)
@@ -61,37 +80,55 @@ const Nav = {
     })
   },
   travelToGallery: cb => {
+    if (Nav.isTraveling) return
     if (Nav.inGallery()) {
       return cb()
     } else {
-      Nav.waitForAnimationEnd(["#Amaruuk", "#LeftMenu_navigation"], ["fadeOut", "fadeOut"], () => {
+      isTraveling = true
+      Nav.waitForAnimationEnd(["#Amaruuk", "#LeftMenu_navigation"], ["fadeOut", "fadeOut"], (r) => {
+        r()
         document.querySelector('#Amaruuk').style.display = 'none'
         document.querySelector('#LeftMenu_navigation').style.visibility = 'hidden'
-        console.log('step 1 done')
-
-        Nav.waitForAnimationEnd(["#Banner", "#Banner_title", "#LeftMenu"], ["moveBannerUp", "moveBannerTitleRight", "shrinkLeftMenu"], () => {
+        Nav.waitForAnimationEnd(["#LeftMenu", "#Banner", "#Banner_title"], ["shrinkLeftMenu", "moveBannerUp", "moveBannerTitleRight"], (r) => {
+          r()
           document.querySelector('#LeftMenu_navigation').style.visibility = 'visible'
           document.body.id = "GalleryView"
-
+          isTraveling = false
           return cb()
         })
       })
     }
   },
   travelToSplash: cb => {
+    if (Nav.isTraveling) return
     if (Nav.inSplash()) {
       return cb()
     } else {
-      // Start transition, yo
-      return cb()
+      isTraveling = true
+      Nav.waitForAnimationEnd(["#Banner_navigation", "#LeftMenu_navigation", "#LeftMenu_SmallAmaruuk", "#Content"], ["fadeOut", "fadeOut", "fadeOut", "fadeOut"], (r1) => {
+        Nav.waitForAnimationEnd(["#LeftMenu", "#Banner", "#Banner_title"], ["growLeftMenu", "moveBannerDown", "moveBannerTitleLeft"], (r2) => {
+          document.querySelector('#Amaruuk').style.display = ''
+          document.body.id = "SplashView"
+          Nav.waitForAnimationEnd(["#Amaruuk", "#LeftMenu_navigation"], ["fadeIn", "fadeIn"], (r3) => {
+            r1()
+            r2()
+            r3()
+            isTraveling = false
+            return cb()
+          })
+        })
+      })
     }
   },
   request: (path, cb) => {
     let xhr = new XMLHttpRequest()
-    let done = false
     xhr.addEventListener('readystatechange', () => {
       if (xhr.readyState == 4) {
-        cb(xhr.responseXML.body)
+        if (xhr.responseXML && xhr.responseXML.body) {
+          cb(xhr.responseXML.body)
+        } else {
+          cb(null)
+        }
       }
     })
     xhr.addEventListener('error', () => {
@@ -100,8 +137,35 @@ const Nav = {
     xhr.open('GET', '/api'+path)
     xhr.responseType = 'document'
     xhr.send()
-  }
+  },
+  handleHistoryPop: event => {
+    if (event.state.path == "/splash") {
+      Nav.travelToSplash(()=>{
+        Nav.clearContent()
+      })
+    } else {
+      Nav.request(event.state.path, (content) => {
+        if (content) {
+          Nav.setContent(event.state.path, content)
+        }
+      })
+    }
+  },
+  setContent: (path, content) => {
+    Nav.travelToGallery(() => {
+      Nav.clearContent()
+      while (content.firstChild) document.getElementById('Content').appendChild(content.firstChild)
+    })
+  },
+  clearContent: () => {
+    let content = document.getElementById('Content')
+    while (content.firstChild) content.firstChild.remove()
+  },
 }
+window.addEventListener('popstate', Nav.handleHistoryPop)
+window.history.replaceState({
+  path: document.location.pathname == "/" ? "/splash" : document.location.pathname,
+}, "", document.location.pathname)
 
 window.addEventListener('DOMContentLoaded', () => {
   Nav.convertAnchors()

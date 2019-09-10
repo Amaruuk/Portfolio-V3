@@ -31,11 +31,17 @@ a {
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 
 @keyframes moveBannerUp {
   to {
     top: 3vh;
+  }
+}
+@keyframes moveBannerDown {
+  to {
+    top: 23.5vh;
   }
 }
 
@@ -44,14 +50,23 @@ a {
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 @keyframes moveBannerTitleRight {
-  to {
+  100% {
     left: 100%;
     width: 40%;
     margin-left: -40%;
   }
 }
+@keyframes moveBannerTitleLeft {
+  100% {
+    left: 0;
+    width: 60vh;
+    margin-left: 0;
+  }
+}
+
 
 #Banner_title_name {
   text-transform: uppercase;
@@ -71,6 +86,14 @@ a {
   font-size: .71em;
   color: var(--fg-reddish);
   padding: 1.2vh;
+}
+
+#Banner_navigation {
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 
 #Banner_navigation > li {
@@ -128,6 +151,7 @@ a {
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 
 @keyframes shrinkLeftMenu {
@@ -135,6 +159,12 @@ a {
     width: 21vh;
   }
 }
+@keyframes growLeftMenu {
+  to {
+    width: 60vh;
+  }
+}
+
 
 .LeftMenu_navigation_item {
   font-size: 3.5vh;
@@ -167,6 +197,11 @@ a {
 
 #LeftMenu_SmallAmaruuk {
   background: center bottom / 70% no-repeat url("/images/birb01.png");
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 
 #LeftMenu_SmallAmaruuk_bubble {
@@ -239,12 +274,14 @@ a {
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 #Amaruuk {
   animation-duration: .5s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeOut {
@@ -254,5 +291,15 @@ a {
   to {
     opacity: 0;
     visibility: hidden;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1.0;
+    visibility: visible;
   }
 }
