@@ -1,0 +1,215 @@
+:root {
+  --bg-main: #000000; 
+  --bg-sidebar: #1e1e1e;
+  --bg-topmenu: rgba(30,30,30,0.8);
+  --bg-topbar: rgba(17,17,17,0.7);
+  --fg-light: #c8c3bb;
+  --fg-dim: #847e7c;
+  --fg-reddish: #653821;
+  --glow: #884426;
+  --cursor: url('/images/featherPointer.png'), default;
+  --cursor-hover: url('/images/featherPointer2.png'), pointer;
+}
+
+body {
+  background: var(--bg-main);
+  font-family: "Ubuntu";
+  cursor: var(--cursor);
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+  cursor: var(--cursor-hover);
+}
+
+#Banner {
+  background: var(--bg-topbar);
+  user-select: none;
+}
+
+#Banner_title_name {
+  text-transform: uppercase;
+  text-align: right;
+  font-family: "Right Hand";
+  font-weight: lighter;
+  color: var(--fg-light);
+  font-size: 6vh;
+  padding: 1.2vh;
+}
+
+#Banner_title_desc {
+  text-transform: uppercase;
+  font-family: "Ubuntu";
+  font-weight: bold;
+  text-align: right;
+  font-size: .71em;
+  color: var(--fg-reddish);
+  padding: 1.2vh;
+}
+
+#Banner_navigation > li {
+  transition: background .2s;
+  font-family: "Right Hand";
+  font-size: 3.5vh;
+}
+#Banner_navigation > li::before {
+  background: url(/images/navFeather.png);
+  background-size: 12vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scaleY(-1.0);
+  transition: opacity .1s;
+}
+#Banner_navigation > li > a {
+  padding: 0 .5em;
+}
+
+#Banner_navigation > li:hover {
+  background: var(--bg-topmenu);
+}
+#Banner_navigation > li:hover > ol {
+  background: var(--bg-topmenu);
+}
+
+#Banner_navigation > li > a {
+  text-decoration: none;
+  color: var(--fg-light);
+  transition: all .1s;
+}
+
+#Banner_navigation > li > ol > li {
+  font-size: 1.7vh;
+  font-family: "Ubuntu";
+  font-weight: lighter;
+  color: var(--fg-light);
+}
+
+#Banner_navigation > li > ol > li > a {
+  padding: .5em 1em;
+}
+
+#Banner_navigation > li > ol > li:hover {
+  color: var(--bg-topmenu);
+  background: var(--fg-light);
+}
+
+#LeftMenu {
+  background: var(--bg-sidebar);
+  padding-right: 1.2vh;
+  user-select: none;
+}
+
+.LeftMenu_navigation_item {
+  font-size: 3.75vh;
+  font-family: "Right Hand";
+  padding-bottom: .5em;
+  color: var(--fg-light);
+  cursor: var(--cursor);
+}
+
+.LeftMenu_navigation_item a {
+  cursor: var(--cursor-hover);
+}
+
+.LeftMenu_navigation_item a:hover {
+  text-shadow: 0 0 .1em var(--glow);
+}
+
+.LeftMenu_navigation_item:before {
+  background: url(/images/navFeather.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.LeftMenu_navigation_item > ol > li {
+  font-size: .4em;
+  font-family: "Ubuntu";
+  font-weight: lighter;
+  color: var(--fg-dim);
+}
+
+#LeftMenu_SmallAmaruuk {
+  background: center bottom / 70% no-repeat url("/images/birb01.png");
+}
+
+#LeftMenu_SmallAmaruuk_bubble {
+  background: url("/images/captionBody.png") center / 100%;
+  font-family: "Ubuntu";
+  font-weight: lighter;
+  font-size: 1.35vh;
+  color: var(--fg-light);
+}
+#LeftMenu_SmallAmaruuk_bubble:before {
+  background: url("/images/captionTop.png") center top / 100% no-repeat;
+}
+#LeftMenu_SmallAmaruuk_bubble:after {
+  background: url("/images/captionBottom.png") center bottom / 100% no-repeat;
+}
+
+#Amaruuk::before {
+  content: '';
+  display: block;
+  width: 100vmin;
+  height: 100vmin;
+  position: absolute;
+  left: 12vh;
+  top: -62vh;
+  background: url("/images/splashSun.png") center / cover;
+  z-index: -1;
+  animation: rotateSun 7.5s linear 0s infinite running;
+}
+
+@keyframes rotateSun {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#Amaruuk {
+  background: left 6.5vh top -50vh / auto 150% no-repeat url("/images/splashFace.png");
+}
+
+#GalleryView .LeftMenu_navigation_item {
+  font-size: 5vh;
+}
+
+#GalleryView .LeftMenu_navigation_item:before {
+  display: none;
+}
+
+.Gallery_item_title {
+  color: var(--fg-light);
+  text-shadow: 0 0 .25em var(--glow);
+  font-weight: lighter;
+  padding: .75em;
+  background: var(--bg-topmenu);
+  text-transform: uppercase;
+}
+
+/* */
+#LeftMenu {
+  animation-delay: .75s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+#Amaruuk {
+  animation-duration: .75s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1.0;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Right Hand Hairline';
+  src: url('original-righthand-hairline.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-lightitalic.otf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-bold.otf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-bolditalic.otf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-extrabolditalic.otf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Right Hand Hairline';
+  src: url('original-righthand-hairlineitalic.otf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-extrabold.otf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-light.otf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Right Hand';
+  src: url('original-righthand-italic.otf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}

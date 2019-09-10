@@ -1,0 +1,10 @@
+{{define "gallery"}}
+<div id="Gallery">
+{{range .}}
+  <div class="Gallery_item" x-description="{{.Description}}">
+    <img class="Gallery_item_image" src="/art/{{.File}}">
+    <span class="Gallery_item_title" >{{.Title}}</span>
+  </div>
+{{end}}
+</div>
+{{end}}

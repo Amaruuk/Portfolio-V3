@@ -1,0 +1,253 @@
+* {
+  box-sizing: border-box;
+}
+
+li, ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-width: 120vh;
+  min-height: 540px;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  font-size: 2vh;
+}
+
+/* Basic Layout Items */
+#Banner {
+  position: absolute;
+  width: 100%;
+  height: 11vh;
+  transition: all 1s;
+}
+#Banner_title {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 1s;
+}
+#Banner_navigation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 60vh;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  transition: all 1s;
+}
+#Banner_navigation > li {
+  position: relative;
+}
+#Banner_navigation > li:hover > ol {
+  opacity: 1.0;
+  visibility: visible;
+  transition: opacity .2s;
+}
+#Banner_navigation > li::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -115%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+#Banner_navigation > li:hover::before {
+  opacity: 1.0;
+}
+#Banner_navigation > li > ol  {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+}
+#Banner_navigation a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+#LeftMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: all 1s;
+}
+#LeftMenu_navigation {
+  text-align: right;
+}
+.LeftMenu_navigation_item {
+  position: relative;
+  opacity: 1;
+  transition: opacity .2s;
+}
+
+.LeftMenu_navigation_item:before {
+  content: '';
+  position: absolute;
+  top: .25vh;
+  right: 3.8em;
+  width: 4em;
+  height: 2em;
+  opacity: 0;
+  transition: opacity .1s;
+}
+
+.LeftMenu_navigation_item:hover:before {
+  opacity: 1.0;
+}
+
+.LeftMenu_navigation_item > ol {
+}
+
+#Amaruuk {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#LeftMenu_SmallAmaruuk {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40vh;
+  padding: 0 2vh;
+  transition: opacity 1s;
+}
+
+#LeftMenu_SmallAmaruuk_bubble {
+  position: relative;
+  min-height: 10vh;
+  padding: 0 2vh;
+}
+#LeftMenu_SmallAmaruuk_bubble:before {
+  display: block;
+  position: absolute;
+  top: -1.8vh;
+  left: 0;
+  width: 100%;
+  height: 2.5vh;
+  content: '';
+}
+#LeftMenu_SmallAmaruuk_bubble:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -4vh;
+  width: 100%;
+  height: 5vh;
+  content: '';
+}
+
+/* Gallery Modifiers */
+#GalleryView #Banner {
+  top: 3vh;
+  left: 0;
+}
+#GalleryView #Banner_title {
+  left: 100%;
+  width: 40%;
+  margin-left: -40%;
+}
+#GalleryView #Banner_navigation {
+  left: 21vh;
+  width: calc(100% - 21vh - 40%);
+  pointer-events: auto;
+  opacity: 1.0;
+}
+
+#GalleryView #LeftMenu {
+  width: 21vh;
+}
+#GalleryView #LeftMenu_navigation {
+  padding-top: calc(3vh + 11vh + 1.2vh);
+}
+#GalleryView .LeftMenu_navigation_item.-splashOnly {
+  opacity: 0;
+}
+
+#GalleryView #Amaruuk {
+  opacity: 0;
+}
+#GalleryView #LeftMenu_SmallAmaruuk {
+  opacity: 1.0;
+}
+
+#Gallery {
+  padding-left: 21vh;
+  padding-top: calc(3vh + 15vh);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15vw, 1fr));
+}
+
+.Gallery_item {
+  position: relative;
+  display: flex;
+}
+
+.Gallery_item_image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.Gallery_item_title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Splash Modifiers */
+#SplashView #Banner {
+  top: 23.5vh;
+}
+#SplashView #Banner_title {
+  left: 0;
+  width: 60vh;
+}
+#Banner_title_desc {
+  position: relative;
+  top: -2.25em;
+}
+#SplashView #Banner_navigation {
+  pointer-events: none;
+  opacity: 0;
+}
+#SplashView #LeftMenu {
+  width: 60vh;
+}
+#SplashView #LeftMenu_navigation {
+  padding-top: calc(23.5vh + 3vh + 11vh);
+}
+#SplashView #Amaruuk {
+}
+#SplashView #LeftMenu_SmallAmaruuk {
+  visibility: hidden;
+  opacity: 0;
+}

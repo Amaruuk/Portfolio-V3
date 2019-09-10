@@ -1,0 +1,38 @@
+#Banner {
+  border: 1px solid red;
+}
+
+#Banner_title {
+  border: 1px solid orange;
+}
+
+#Banner_navigation {
+  border: 1px solid pink;
+}
+
+#Banner_navigation > li {
+  border: 1px solid red;
+}
+#Banner_navigation > li::before {
+  border: 1px solid yellow;
+}
+
+#Banner_navigation > li > ol > li {
+  border: 1px solid pink;
+}
+
+#LeftMenu {
+  border: 1px solid green;
+}
+
+.LeftMenu_navigation_item:before {
+  border: 1px solid lightblue;
+}
+
+#Amaruuk {
+  border: 1px solid blue;
+}
+
+.Gallery_item_title {
+  border: 1px solid gold;
+}
