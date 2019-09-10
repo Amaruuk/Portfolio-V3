@@ -26,6 +26,31 @@ a {
 #Banner {
   background: var(--bg-topbar);
   user-select: none;
+
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+
+@keyframes moveBannerUp {
+  to {
+    top: 3vh;
+  }
+}
+
+#Banner_title {
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+@keyframes moveBannerTitleRight {
+  to {
+    left: 100%;
+    width: 40%;
+    margin-left: -40%;
+  }
 }
 
 #Banner_title_name {
@@ -98,10 +123,21 @@ a {
   background: var(--bg-sidebar);
   padding-right: 1.2vh;
   user-select: none;
+
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+}
+
+@keyframes shrinkLeftMenu {
+  to {
+    width: 21vh;
+  }
 }
 
 .LeftMenu_navigation_item {
-  font-size: 3.75vh;
+  font-size: 3.5vh;
   font-family: "Right Hand";
   padding-bottom: .5em;
   color: var(--fg-light);
@@ -147,6 +183,9 @@ a {
   background: url("/images/captionBottom.png") center bottom / 100% no-repeat;
 }
 
+#Amaruuk {
+}
+
 #Amaruuk::before {
   content: '';
   display: block;
@@ -156,7 +195,6 @@ a {
   left: 12vh;
   top: -62vh;
   background: url("/images/splashSun.png") center / cover;
-  z-index: -1;
   animation: rotateSun 7.5s linear 0s infinite running;
 }
 
@@ -169,7 +207,12 @@ a {
   }
 }
 
-#Amaruuk {
+#Amaruuk::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background: left 6.5vh top -50vh / auto 150% no-repeat url("/images/splashFace.png");
 }
 
@@ -185,20 +228,20 @@ a {
   color: var(--fg-light);
   text-shadow: 0 0 .25em var(--glow);
   font-weight: lighter;
-  padding: .75em;
+  padding: .5em;
   background: var(--bg-topmenu);
   text-transform: uppercase;
 }
 
 /* */
-#LeftMenu {
-  animation-delay: .75s;
+#LeftMenu_navigation {
+  animation-duration: .5s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;
 }
 #Amaruuk {
-  animation-duration: .75s;
+  animation-duration: .5s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-play-state: running;

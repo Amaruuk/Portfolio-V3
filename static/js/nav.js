@@ -9,8 +9,10 @@ const Nav = {
       anchor.addEventListener('click', e => {
         e.preventDefault()
 
+        console.log("ding")
         if (anchor.pathname.startsWith("/gallery")) {
           Nav.travelToGallery(() => {
+            window.history.pushState({}, "", anchor.pathname)
             console.log("should show gallery")
           })
         } else if (anchor.pathname == "/") {
@@ -29,30 +31,50 @@ const Nav = {
   inSplash: () => {
     return window.location.pathname == "/"
   },
-  waitForAnimationEnd: (ids, animations, cb) => {
+  waitForAnimationEnd: (queries, animations, cb) => {
     let done = 0
-    ids.forEach((id, index) => {
-      let el = document.getElementById(id)
+    queries.forEach((query, index) => {
+      let el = document.querySelector(query)
+
+      if (!el) {
+        if (checkDone()) return
+      }
+
+      function checkDone() {
+        if (++done == queries.length) {
+          queries.forEach(query => {
+            document.querySelector(query).style.setProperty('animation-name', '')
+          })
+          cb()
+          return true
+        }
+        return false
+      }
+
       function elEndFunc() {
         el.removeEventListener("animationend", elEndFunc)
-        el.style.animationName = ""
-        if (++done == ids.length) {
-          cb()
-        }
+        checkDone()
       }
+
       el.addEventListener("animationend", elEndFunc)
-      el.style.animationName = animations[index]
+      el.style.setProperty('animation-name', animations[index])
     })
   },
   travelToGallery: cb => {
     if (Nav.inGallery()) {
       return cb()
     } else {
-      console.log("waiting!")
-      Nav.waitForAnimationEnd(["Amaruuk", "LeftMenu"], ["fadeOut", "fadeOut"], () => {
-        document.body.id = "GalleryView"
-        console.log("anim dun dun")
-        return cb()
+      Nav.waitForAnimationEnd(["#Amaruuk", "#LeftMenu_navigation"], ["fadeOut", "fadeOut"], () => {
+        document.querySelector('#Amaruuk').style.display = 'none'
+        document.querySelector('#LeftMenu_navigation').style.visibility = 'hidden'
+        console.log('step 1 done')
+
+        Nav.waitForAnimationEnd(["#Banner", "#Banner_title", "#LeftMenu"], ["moveBannerUp", "moveBannerTitleRight", "shrinkLeftMenu"], () => {
+          document.querySelector('#LeftMenu_navigation').style.visibility = 'visible'
+          document.body.id = "GalleryView"
+
+          return cb()
+        })
       })
     }
   },
