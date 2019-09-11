@@ -85,16 +85,19 @@ const Nav = {
       return cb()
     } else {
       isTraveling = true
-      Nav.waitForAnimationEnd(["#Amaruuk", "#LeftMenu_navigation"], ["fadeOut", "fadeOut"], (r) => {
-        r()
+      Nav.waitForAnimationEnd(["#Amaruuk", "#LeftMenu_navigation"], ["fadeOut", "fadeOut"], (r1) => {
         document.querySelector('#Amaruuk').style.display = 'none'
         document.querySelector('#LeftMenu_navigation').style.visibility = 'hidden'
-        Nav.waitForAnimationEnd(["#LeftMenu", "#Banner", "#Banner_title"], ["shrinkLeftMenu", "moveBannerUp", "moveBannerTitleRight"], (r) => {
-          r()
+        Nav.waitForAnimationEnd(["#LeftMenu", "#Banner", "#Banner_title"], ["shrinkLeftMenu", "moveBannerUp", "moveBannerTitleRight"], (r2) => {
+          r1()
           document.querySelector('#LeftMenu_navigation').style.visibility = 'visible'
           document.body.id = "GalleryView"
-          isTraveling = false
-          return cb()
+          Nav.waitForAnimationEnd(["#LeftMenu_navigation", "#Banner_navigation"], ["fadeIn", "fadeIn"], (r3) => {
+            r2()
+            r3()
+            isTraveling = false
+            return cb()
+          })
         })
       })
     }

@@ -28,13 +28,11 @@ body {
   position: absolute;
   width: 100%;
   height: 11vh;
-  transition: all .5s ease-in-out;
 }
 #Banner_title {
   position: absolute;
   top: 0;
   height: 100%;
-  transition: all .5s ease-in-out;
 }
 #Banner_navigation {
   position: absolute;
@@ -47,7 +45,6 @@ body {
   flex-direction: row;
   align-items: flex-end;
 
-  transition: all .5s;
 }
 #Banner_navigation > li {
   position: relative;
