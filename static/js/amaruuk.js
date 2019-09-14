@@ -4,7 +4,11 @@ const Amaruuk = {
   elSmall: null,
   init: () => {
     Amaruuk.elEye = document.getElementById("Amaruuk_eye")
-    Amaruuk.elEye.classList.add('-shown')
+    let loader = document.createElement('img')
+    loader.addEventListener('load', () => {
+      Amaruuk.elEye.classList.add('-shown')
+    })
+    loader.src = "/images/splashFace.png"
     Amaruuk.elEye.addEventListener("animationend", Amaruuk.blinkEnd)
     Amaruuk.blink()
     Amaruuk.elBubble = document.getElementById("LeftMenu_SmallAmaruuk_bubble")
