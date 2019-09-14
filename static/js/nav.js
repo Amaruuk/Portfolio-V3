@@ -156,6 +156,7 @@ const Nav = {
   },
   setContent: (path, content) => {
     Nav.travelToGallery(() => {
+      document.title = path.substr("/gallery/".length) + " - Angela R. Connor"
       Nav.clearContent()
       while (content.firstChild) document.getElementById('Content').appendChild(content.firstChild)
       Nav.setupGallery()
@@ -224,4 +225,7 @@ window.addEventListener('DOMContentLoaded', () => {
   Nav.convertAnchors()
   Nav.setupGallery()
   Nav.setupLightbox()
+  if (Nav.inGallery()) {
+    document.title = window.location.pathname.substr("/gallery/".length) + " - Angela R. Connor"
+  }
 })
