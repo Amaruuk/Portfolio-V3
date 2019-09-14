@@ -214,6 +214,7 @@ const Nav = {
     lightbox.classList.remove('-hidden')
     lightbox.classList.add('-shown')
     document.getElementById('Lightbox_img').src = target.src
+    document.getElementById('Lightbox_title').innerHTML = Nav.currentTarget.parentNode.parentNode.getAttribute('x-title')
   }
 }
 window.addEventListener('popstate', Nav.handleHistoryPop)
