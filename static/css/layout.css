@@ -177,6 +177,7 @@ body {
   animation-iteration-count: 1;
   animation-play-state: running;
   animation-fill-mode: forwards;
+  visibility: hidden;
 }
 #Lightbox.-shown {
   animation-name: Lightbox_fadeIn;
@@ -242,10 +243,12 @@ body {
   }
   100% {
     opacity: 1;
+    visibility: visible;
   }
 }
 @keyframes Lightbox_fadeOut {
   0% {
+    visibility: visible;
     opacity: 1;
   }
   99% {
