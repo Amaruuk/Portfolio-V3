@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+  <head>
+  <script type='text/javascript'>
+    const Editor = {
+      init: () => {
+        Editor.editor = document.getElementById('editor')
+        Editor.editorItems = document.getElementById('editorItems')
+        let buttonAddItem = document.getElementById('editorControls_addItem')
+        buttonAddItem.addEventListener('click', () => {
+          Editor.addItem()
+        })
+        let buttonLoad = document.getElementById('buttonLoad')
+        buttonLoad.addEventListener('click', () => {
+          let file = document.createElement('input')
+          file.type = 'file'
+          file.accept = '.json'
+          file.addEventListener('input', e => {
+            Editor.fileReader.readAsText(e.target.files[0])
+          })
+          file.click()
+        })
+        let buttonExport = document.getElementById('buttonExport')
+        buttonExport.addEventListener('click', () => {
+          let dataURL = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(Editor.data, null, 2))
+          let a = document.createElement('a')
+          a.href = dataURL
+          a.download = 'gallery.json'
+          a.click()
+        })
+        Editor.fileReader.addEventListener('load', (e) => {
+          Editor.populate(JSON.parse(e.target.result))
+        })
+      },
+      data: {
+        Items: [],
+      },
+      fileReader: new FileReader(),
+      populate: json => {
+        for (let item of json.Items) {
+          Editor.addItem(item)
+        }
+      },
+      addItem: (item={Title: "", Description: "", File: "", Tags: [""]}) => {
+        Editor.editorItems.appendChild(Editor.newItemElement(item))
+      },
+      newItemElement: item => {
+        Editor.data.Items.push(item)
+        let el = document.createElement('div')
+        el.className = 'editorItems_item'
+        let del   = document.createElement('button')
+        del.innerHTML = 'delete item'
+        del.addEventListener('click', () => {
+          el.parentNode.removeChild(el)
+          Editor.data.Items.splice(Editor.data.Items.indexOf(item), 1)
+        })
+        let title = Editor.createInput(item, 'Title')
+        let year  = Editor.createInput(item, 'Year')
+        let desc  = Editor.createInput(item, 'Description')
+        let file  = Editor.createInput(item, 'File')
+        let tags  = Editor.createTags(item)
+        el.appendChild(del)
+        el.appendChild(title)
+        el.appendChild(year)
+        el.appendChild(desc)
+        el.appendChild(file)
+        el.appendChild(tags)
+        return el
+      },
+      createInput: (item, name) => {
+        let el = document.createElement('label')
+        let sp = document.createElement('span')
+        sp.innerHTML = name
+        let ip = document.createElement('input')
+        ip.addEventListener('input', e => {
+          item[name] = e.target.value
+        })
+        el.appendChild(sp)
+        el.appendChild(ip)
+        return el
+      },
+      createTags: (item) => {
+        let el = document.createElement('div')
+        let sp = document.createElement('span')
+        let ol = document.createElement('ol')
+        let ad = document.createElement('button')
+        ad.innerHTML = 'add tag'
+        ad.addEventListener('click', () => {
+          item.Tags.push("")
+          ol.appendChild(Editor.createTag(item, item.Tags.length-1))
+        })
+        for (let i = 0; i < item.Tags.length; i++) {
+          ol.appendChild(Editor.createTag(item, i))
+        }
+        el.appendChild(sp)
+        el.appendChild(ad)
+        el.appendChild(ol)
+        return el
+      },
+      createTag: (item, index) => {
+        let li = document.createElement('li')
+        let ip = document.createElement('input')
+        ip.addEventListener('input', e => {
+          item.Tags[index] = e.target.value
+        })
+        let dl = document.createElement('button')
+        dl.innerHTML = 'x'
+        dl.addEventListener('click', () => {
+          item.Tags = item.Tags.filter(item => {
+            return item != ip.value
+          })
+          li.parentNode.removeChild(li)
+        })
+        li.appendChild(ip)
+        li.appendChild(dl)
+        return li
+      },
+    }
+    window.addEventListener('DOMContentLoaded', Editor.init)
+  </script>
+  </head>
+  <body>
+    <button id='buttonLoad'>Load Art File</button>
+    <button id='buttonExport'>Export Art File</button>
+    <div id='editor'>
+      <div id='editorControls'>
+        <button id='editorControls_addItem'>add item</button>
+      </div>
+      <div id='editorItems'></div>
+    </div>
+  </body>
+</html>
