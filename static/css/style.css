@@ -287,7 +287,8 @@ a {
   animation-play-state: running;
   animation-timing-function: steps(1, end);
   opacity: 0;
-  transition: opacity .2s;
+  transition: opacity .3s;
+  transition-delay: 5s;
 }
 #Amaruuk_eye.-shown {
   opacity: 1.0;
