@@ -29,6 +29,7 @@
           a.click()
         })
         Editor.fileReader.addEventListener('load', (e) => {
+          console.log(JSON.parse(e.target.result))
           Editor.populate(JSON.parse(e.target.result))
         })
       },
@@ -54,11 +55,11 @@
           el.parentNode.removeChild(el)
           Editor.data.Items.splice(Editor.data.Items.indexOf(item), 1)
         })
-        let title = Editor.createInput(item, 'Title')
-        let year  = Editor.createInput(item, 'Year')
-        let desc  = Editor.createInput(item, 'Description')
-        let file  = Editor.createInput(item, 'File')
-        let tags  = Editor.createTags(item)
+        let title = Editor.createInput(item, 'Title', item.Title)
+        let year  = Editor.createInput(item, 'Year', item.Year)
+        let desc  = Editor.createInput(item, 'Description', item.Description)
+        let file  = Editor.createInput(item, 'File', item.File)
+        let tags  = Editor.createTags(item, item.Tags)
         el.appendChild(del)
         el.appendChild(title)
         el.appendChild(year)
@@ -67,11 +68,12 @@
         el.appendChild(tags)
         return el
       },
-      createInput: (item, name) => {
+      createInput: (item, name, value) => {
         let el = document.createElement('label')
         let sp = document.createElement('span')
         sp.innerHTML = name
         let ip = document.createElement('input')
+        ip.value = value
         ip.addEventListener('input', e => {
           item[name] = e.target.value
         })
@@ -79,7 +81,7 @@
         el.appendChild(ip)
         return el
       },
-      createTags: (item) => {
+      createTags: (item, tags) => {
         let el = document.createElement('div')
         let sp = document.createElement('span')
         let ol = document.createElement('ol')
@@ -90,16 +92,17 @@
           ol.appendChild(Editor.createTag(item, item.Tags.length-1))
         })
         for (let i = 0; i < item.Tags.length; i++) {
-          ol.appendChild(Editor.createTag(item, i))
+          ol.appendChild(Editor.createTag(item, i, item.Tags[i]))
         }
         el.appendChild(sp)
         el.appendChild(ad)
         el.appendChild(ol)
         return el
       },
-      createTag: (item, index) => {
+      createTag: (item, index, value) => {
         let li = document.createElement('li')
         let ip = document.createElement('input')
+        ip.value = value
         ip.addEventListener('input', e => {
           item.Tags[index] = e.target.value
         })
