@@ -177,7 +177,7 @@ const Nav = {
           Amaruuk.say('')
         })
         item.addEventListener('click', () => {
-          Nav.displayLightbox(item.getElementsByTagName('img')[0].src)
+          Nav.displayLightbox(item.getElementsByTagName('img')[0])
         })
       }
     })
@@ -186,22 +186,33 @@ const Nav = {
     document.getElementById('Lightbox_close').addEventListener('click', () => {
       Nav.displayLightbox('')
     })
+    document.getElementById('Lightbox_left').addEventListener('click', () => {
+      try {
+        Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.previousElementSibling.getElementsByTagName('img')[0])
+      } catch(e) {}
+    })
+    document.getElementById('Lightbox_right').addEventListener('click', () => {
+      try {
+        Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.nextElementSibling.getElementsByTagName('img')[0])
+      } catch(e) {}
+    })
     window.addEventListener('keyup', (e) => {
       if (e.key == "Escape") {
         Nav.displayLightbox('')
       }
     })
   },
-  displayLightbox: (url) => {
+  displayLightbox: (target) => {
+    Nav.currentTarget = target
     let lightbox = document.getElementById('Lightbox')
-    if (url == '') {
+    if (!target) {
       lightbox.classList.remove('-shown')
       lightbox.classList.add('-hidden')
       return
     }
     lightbox.classList.remove('-hidden')
     lightbox.classList.add('-shown')
-    document.getElementById('Lightbox_img').src = url
+    document.getElementById('Lightbox_img').src = target.src
   }
 }
 window.addEventListener('popstate', Nav.handleHistoryPop)
