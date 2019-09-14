@@ -25,9 +25,10 @@ body {
 
 /* Basic Layout Items */
 #Banner {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 11vh;
+  z-index: 1000;
 }
 #Banner_title {
   position: absolute;
@@ -86,7 +87,7 @@ body {
 }
 
 #LeftMenu {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -113,9 +114,6 @@ body {
   opacity: 1.0;
 }
 
-.LeftMenu_navigation_item > ol {
-}
-
 #Amaruuk {
   position: absolute;
   top: 0;
@@ -130,14 +128,14 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40vh;
+  height: 35vh;
   padding: 0 2vh;
   transition: opacity .5s ease-in-out;
 }
 
 #LeftMenu_SmallAmaruuk_bubble {
   position: relative;
-  min-height: 10vh;
+  min-height: 5vh;
   padding: 0 2vh;
 }
 #LeftMenu_SmallAmaruuk_bubble:before {
@@ -157,6 +155,79 @@ body {
   width: 100%;
   height: 5vh;
   content: '';
+}
+
+#Lightbox {
+  position: fixed;
+  left: 50vw;
+  top: 50vh;
+  margin-left: -50vw;
+  margin-top: -50vh;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  z-index: 9999;
+  animation-duration: .2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+  animation-fill-mode: forwards;
+}
+#Lightbox.-shown {
+  animation-name: Lightbox_fadeIn;
+}
+#Lightbox.-hidden {
+  animation-name: Lightbox_fadeOut;
+}
+#Lightbox_controls {
+}
+#Lightbox_close {
+  position: absolute;
+  top: -.35em;
+  right: 0;
+  font-size: 400%;
+  color: #fff;
+  text-shadow: 0 0 .05em #000;
+  opacity: 0.5;
+}
+#Lightbox_close:hover {
+  opacity: 1.0;
+}
+#Lightbox_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+#Lightbox_img {
+  max-width: 100%;
+  max-height: 100%;
+}
+@keyframes Lightbox_fadeIn {
+  0% {
+    visibility: visible;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes Lightbox_fadeOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /* Gallery Modifiers */
@@ -186,6 +257,10 @@ body {
   display: none;
 }
 
+#GalleryView .LeftMenu_navigation_item > ol {
+  margin: 0.25em 0 0.5em 0;
+}
+
 #GalleryView #Amaruuk {
   opacity: 0;
 }
@@ -196,14 +271,27 @@ body {
 #Gallery {
   padding-left: 21vh;
   padding-top: calc(3vh + 15vh);
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15vw, 1fr));
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
 .Gallery_item {
   position: relative;
-  display: flex;
+  display: inline-flex;
+  align-items: flex-start;
+  margin: .5em;
+}
+.Gallery_item:hover .Gallery_item_title {
+  opacity: 1.0;
+}
+
+.Gallery_item_container {
+  position: relative;
+  height: 30vh;
+  width: auto;
 }
 
 .Gallery_item_image {
@@ -220,6 +308,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity .3s;
 }
 
 /* Splash Modifiers */
@@ -243,6 +333,9 @@ body {
 }
 #SplashView #LeftMenu_navigation {
   padding-top: calc(23.5vh + 3vh + 11vh);
+}
+#SplashView .LeftMenu_navigation_item.-galleryOnly {
+  display: none;
 }
 #SplashView #Amaruuk {
 }

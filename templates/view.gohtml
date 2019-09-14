@@ -8,9 +8,10 @@
   <link rel="stylesheet" href="/fonts/righthand/style.css"/>
   <link rel="stylesheet" href="/fonts/ubuntu/style.css"/>
   <script type='text/javascript' src='/js/nav.js'></script>
+  <script type='text/javascript' src='/js/amaruuk.js'></script>
 </head>
 <body id="{{.Location}}View">
-  <div id="Amaruuk"></div>
+  <div id="Amaruuk"><div id="Amaruuk_eye"></div></div>
   {{template "leftmenu" .}}
   {{template "banner" .}}
   <div id="Content">
@@ -18,6 +19,7 @@
       {{template "gallery" .GalleryItems}}
     {{end}}
   </div>
+  {{template "lightbox"}}
 </body>
 </html>
 {{end}}

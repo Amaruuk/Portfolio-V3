@@ -158,12 +158,51 @@ const Nav = {
     Nav.travelToGallery(() => {
       Nav.clearContent()
       while (content.firstChild) document.getElementById('Content').appendChild(content.firstChild)
+      Nav.setupGallery()
     })
   },
   clearContent: () => {
     let content = document.getElementById('Content')
     while (content.firstChild) content.firstChild.remove()
   },
+  setupGallery: () => {
+    let gallery = document.getElementById('Gallery')
+    if (!gallery) return
+    Array.prototype.forEach.call(gallery.children, item => {
+      if (item.hasAttribute('x-title')) {
+        item.addEventListener('mouseover', e => {
+          Amaruuk.say(`<header>${item.getAttribute('x-title')}</header>${item.getAttribute('x-year')}<p>${item.getAttribute('x-description')}</p>`)
+        })
+        item.addEventListener('mouseout', e => {
+          Amaruuk.say('')
+        })
+        item.addEventListener('click', () => {
+          Nav.displayLightbox(item.getElementsByTagName('img')[0].src)
+        })
+      }
+    })
+  },
+  setupLightbox: () => {
+    document.getElementById('Lightbox_close').addEventListener('click', () => {
+      Nav.displayLightbox('')
+    })
+    window.addEventListener('keyup', (e) => {
+      if (e.key == "Escape") {
+        Nav.displayLightbox('')
+      }
+    })
+  },
+  displayLightbox: (url) => {
+    let lightbox = document.getElementById('Lightbox')
+    if (url == '') {
+      lightbox.classList.remove('-shown')
+      lightbox.classList.add('-hidden')
+      return
+    }
+    lightbox.classList.remove('-hidden')
+    lightbox.classList.add('-shown')
+    document.getElementById('Lightbox_img').src = url
+  }
 }
 window.addEventListener('popstate', Nav.handleHistoryPop)
 window.history.replaceState({
@@ -172,4 +211,6 @@ window.history.replaceState({
 
 window.addEventListener('DOMContentLoaded', () => {
   Nav.convertAnchors()
+  Nav.setupGallery()
+  Nav.setupLightbox()
 })
