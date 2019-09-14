@@ -321,8 +321,8 @@ body {
 }
 
 #Gallery {
-  padding-left: 21vh;
-  padding-top: calc(3vh + 15vh);
+  padding-left: 22vh;
+  padding-top: calc(3vh + 12vh);
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
