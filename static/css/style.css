@@ -3,6 +3,7 @@
   --bg-sidebar: #1e1e1e;
   --bg-topmenu: rgba(30,30,30,0.8);
   --bg-topbar: rgba(17,17,17,0.7);
+  --bg-galleryitem: #0c0c0c;
   --fg-light: #c8c3bb;
   --fg-dim: #847e7c;
   --fg-reddish: #653821;
@@ -329,6 +330,10 @@ a {
   padding: .5em;
   background: var(--bg-topmenu);
   text-transform: uppercase;
+}
+
+.Gallery_item {
+  background: var(--bg-galleryitem);
 }
 
 /* */

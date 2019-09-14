@@ -344,6 +344,7 @@ body {
   position: relative;
   height: 30vh;
   width: auto;
+  display: flex;
 }
 
 .Gallery_item_image {
