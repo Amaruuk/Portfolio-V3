@@ -29,7 +29,6 @@
           a.click()
         })
         Editor.fileReader.addEventListener('load', (e) => {
-          console.log(JSON.parse(e.target.result))
           Editor.populate(JSON.parse(e.target.result))
         })
       },
@@ -42,7 +41,7 @@
           Editor.addItem(item)
         }
       },
-      addItem: (item={Title: "", Description: "", File: "", Tags: [""]}) => {
+      addItem: (item={Title: "", Description: "", File: "", Tags: [""], Year: ""}) => {
         Editor.editorItems.appendChild(Editor.newItemElement(item))
       },
       newItemElement: item => {
@@ -89,7 +88,7 @@
         ad.innerHTML = 'add tag'
         ad.addEventListener('click', () => {
           item.Tags.push("")
-          ol.appendChild(Editor.createTag(item, item.Tags.length-1))
+          ol.appendChild(Editor.createTag(item, item.Tags.length-1, ""))
         })
         for (let i = 0; i < item.Tags.length; i++) {
           ol.appendChild(Editor.createTag(item, i, item.Tags[i]))
