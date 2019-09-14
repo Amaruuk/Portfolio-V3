@@ -14,6 +14,7 @@ type galleryItem struct {
 	Title       string
 	Description string
 	File        string
+	Year        string
 	Tags        []string
 }
 
@@ -84,14 +85,19 @@ func getGalleryItemsFromTags(tags string) []*galleryItem {
 	items := make([]*galleryItem, 0)
 
 	for _, item := range database.Items {
+		matches := 0
 		for _, searchTag := range searchTags {
 			if containsString(searchTag, item.Tags) {
-				if !itemExistsWithin(item, items) {
-					items = append(items, item)
-				}
+				matches++
+			}
+		}
+		if matches == len(searchTags) {
+			if !itemExistsWithin(item, items) {
+				items = append(items, item)
 			}
 		}
 	}
+
 	return items
 }
 
