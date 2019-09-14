@@ -200,6 +200,14 @@ const Nav = {
     window.addEventListener('keyup', (e) => {
       if (e.key == "Escape") {
         Nav.displayLightbox('')
+      } else if (e.key == "ArrowLeft" || e.key == "h") {
+        try { 
+          Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.previousElementSibling.getElementsByTagName('img')[0])
+        } catch(e) {}
+      } else if (e.key == "ArrowRight" || e.key == "l") {
+        try { 
+          Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.nextElementSibling.getElementsByTagName('img')[0])
+        } catch(e) {}
       }
     })
   },
