@@ -286,6 +286,11 @@ a {
   z-index: 50;
   animation-play-state: running;
   animation-timing-function: steps(1, end);
+  opacity: 0;
+  transition: opacity .2s;
+}
+#Amaruuk_eye.-shown {
+  opacity: 1.0;
 }
 
 @keyframes blinkEye {
