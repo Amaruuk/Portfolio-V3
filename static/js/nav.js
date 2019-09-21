@@ -3,7 +3,7 @@ const Nav = {
   convertAnchors: () => {
     let anchors = document.body.getElementsByTagName('a')
     anchors = Array.prototype.filter.call(anchors, anchor => {
-      return anchor.pathname.startsWith("/gallery") || anchor.pathname == "/"
+      return (anchor.hostname == location.hostname) && (anchor.pathname.startsWith("/gallery") || anchor.pathname == "/")
     })
 
     for (let anchor of anchors) {
