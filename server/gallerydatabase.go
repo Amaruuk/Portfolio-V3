@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"sort"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -97,6 +99,13 @@ func getGalleryItemsFromTags(tags string) []*galleryItem {
 			}
 		}
 	}
+
+	// Now sort by year.
+	sort.Slice(items, func(i, j int) bool {
+		a, _ := strconv.Atoi(items[i].Year)
+		b, _ := strconv.Atoi(items[j].Year)
+		return a > b
+	})
 
 	return items
 }
