@@ -226,12 +226,22 @@ const Nav = {
       document.getElementById('Lightbox_img').style.display = 'block'
       document.getElementById('Lightbox_video').style.display = 'none'
     } else if (target.tagName === 'VIDEO') {
-      console.log(target.src)
       document.getElementById('Lightbox_video').src = target.src
       document.getElementById('Lightbox_video').style.display = 'block'
       document.getElementById('Lightbox_img').style.display = 'none'
     }
     document.getElementById('Lightbox_title').innerHTML = Nav.currentTarget.parentNode.parentNode.getAttribute('x-title')
+    // Show/hide left/right nav arrows 
+    if (Nav.currentTarget.parentNode.parentNode.previousElementSibling) {
+      document.getElementById('Lightbox_left').style.opacity = 1
+    } else {
+      document.getElementById('Lightbox_left').style.opacity = 0
+    }
+    if (Nav.currentTarget.parentNode.parentNode.nextElementSibling) {
+      document.getElementById('Lightbox_right').style.opacity = 1
+    } else {
+      document.getElementById('Lightbox_right').style.opacity = 0
+    }
   }
 }
 window.addEventListener('popstate', Nav.handleHistoryPop)
