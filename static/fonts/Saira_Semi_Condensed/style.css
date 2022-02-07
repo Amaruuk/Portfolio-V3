@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SairaSemiCondensed';
+  src: url('/fonts/Saira_Semi_Condensed/SairaSemiCondensed-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
