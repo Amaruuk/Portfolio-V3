@@ -178,7 +178,7 @@ const Nav = {
           Amaruuk.say('')
         })
         item.addEventListener('click', () => {
-          Nav.displayLightbox(item.getElementsByTagName('img')[0])
+          Nav.displayLightbox(item.getElementsByClassName('Gallery_item_image')[0])
         })
       }
     })
@@ -189,12 +189,12 @@ const Nav = {
     })
     document.getElementById('Lightbox_left').addEventListener('click', () => {
       try {
-        Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.previousElementSibling.getElementsByTagName('img')[0])
+        Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.previousElementSibling.getElementsByClassName('Gallery_item_image')[0])
       } catch(e) {}
     })
     document.getElementById('Lightbox_right').addEventListener('click', () => {
       try {
-        Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.nextElementSibling.getElementsByTagName('img')[0])
+        Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.nextElementSibling.getElementsByClassName('Gallery_item_image')[0])
       } catch(e) {}
     })
     window.addEventListener('keyup', (e) => {
@@ -202,11 +202,11 @@ const Nav = {
         Nav.displayLightbox('')
       } else if (e.key == "ArrowLeft" || e.key == "h") {
         try { 
-          Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.previousElementSibling.getElementsByTagName('img')[0])
+          Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.previousElementSibling.getElementsByClassName('Gallery_item_image')[0])
         } catch(e) {}
       } else if (e.key == "ArrowRight" || e.key == "l") {
         try { 
-          Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.nextElementSibling.getElementsByTagName('img')[0])
+          Nav.displayLightbox(Nav.currentTarget.parentNode.parentNode.nextElementSibling.getElementsByClassName('Gallery_item_image')[0])
         } catch(e) {}
       }
     })
@@ -221,7 +221,16 @@ const Nav = {
     }
     lightbox.classList.remove('-hidden')
     lightbox.classList.add('-shown')
-    document.getElementById('Lightbox_img').src = target.src
+    if (target.tagName === 'IMG') {
+      document.getElementById('Lightbox_img').src = target.src
+      document.getElementById('Lightbox_img').style.display = 'block'
+      document.getElementById('Lightbox_video').style.display = 'none'
+    } else if (target.tagName === 'VIDEO') {
+      console.log(target.src)
+      document.getElementById('Lightbox_video').src = target.src
+      document.getElementById('Lightbox_video').style.display = 'block'
+      document.getElementById('Lightbox_img').style.display = 'none'
+    }
     document.getElementById('Lightbox_title').innerHTML = Nav.currentTarget.parentNode.parentNode.getAttribute('x-title')
   }
 }

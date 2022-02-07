@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -18,6 +19,10 @@ type galleryItem struct {
 	File        string
 	Year        string
 	Tags        []string
+}
+
+func (g galleryItem) Ext() string {
+	return filepath.Ext(g.File)
 }
 
 type galleryDatabase struct {
