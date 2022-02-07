@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -23,6 +24,8 @@ func main() {
 	r.PathPrefix("/art/").Handler(http.StripPrefix("/art/", http.FileServer(http.Dir("./art/"))))
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 
+	h := cors.Default().Handler(r)
+
 	// Build our templates.
 	if err := buildTemplates(); err != nil {
 		log.Fatal(err)
@@ -38,7 +41,7 @@ func main() {
 	go watchDatabase()
 
 	srv := &http.Server{
-		Handler:      r,
+		Handler:      h,
 		Addr:         "127.0.0.1:8000",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
