@@ -156,7 +156,7 @@ const Nav = {
   },
   setContent: (path, content) => {
     Nav.travelToGallery(() => {
-      document.title = path.substr("/gallery/".length) + " - Angela R. Connor"
+      document.title = path.substr("/gallery/".length) + " - BirdTooth Studio"
       Nav.clearContent()
       while (content.firstChild) document.getElementById('Content').appendChild(content.firstChild)
       Nav.setupGallery()
@@ -235,6 +235,6 @@ window.addEventListener('DOMContentLoaded', () => {
   Nav.setupGallery()
   Nav.setupLightbox()
   if (Nav.inGallery()) {
-    document.title = window.location.pathname.substr("/gallery/".length) + " - Angela R. Connor"
+    document.title = window.location.pathname.substr("/gallery/".length) + " - BirdTooth Studio"
   }
 })
