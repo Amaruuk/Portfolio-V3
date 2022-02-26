@@ -345,6 +345,7 @@ body {
   height: 30vh;
   width: auto;
   display: flex;
+  align-items: center;
 }
 
 .Gallery_item_image {
