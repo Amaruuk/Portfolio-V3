@@ -224,7 +224,7 @@ const Nav = {
     lightbox.classList.add('-shown')
     if (target.tagName === 'IMG') {
       document.getElementById('Lightbox_video').pause()
-      document.getElementById('Lightbox_img').src = target.src
+      document.getElementById('Lightbox_img').src = target.getAttribute('x-src')
       document.getElementById('Lightbox_img').style.display = 'block'
       document.getElementById('Lightbox_video').style.display = 'none'
     } else if (target.tagName === 'VIDEO') {

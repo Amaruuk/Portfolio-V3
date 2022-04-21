@@ -6,7 +6,7 @@
       {{if eq ".webm" .Ext }}
         <video {{if not .NoAutoplay}}autoplay{{end}} {{if not .Unmuted}}muted{{end}} loop class="Gallery_item_image" {{if .ShowControls}}controls{{end}} src="/art/{{.File}}"></video>
       {{else}}
-        <img class="Gallery_item_image" src="/art/{{.File}}">
+        <img class="Gallery_item_image" src="{{if .Thumbnail}}/thumbs/{{.Thumbnail}}{{else}}/art/{{.File}}{{end}}" x-src="/art/{{.File}}">
       {{end}}
       <span class="Gallery_item_title" >{{.Title}}</span>
     </div>

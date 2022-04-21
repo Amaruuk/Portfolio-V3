@@ -22,6 +22,7 @@ func main() {
 	r.HandleFunc("/api/gallery", galleryAPIHandler)
 	// Set up our static path handlers.
 	r.PathPrefix("/art/").Handler(http.StripPrefix("/art/", http.FileServer(http.Dir("./art/"))))
+	r.PathPrefix("/thumbs/").Handler(http.StripPrefix("/thumbs/", http.FileServer(http.Dir("./thumbs/"))))
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 
 	h := cors.Default().Handler(r)
