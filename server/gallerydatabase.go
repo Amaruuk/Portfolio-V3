@@ -8,7 +8,6 @@ import (
 
 	_ "image/gif"
 	"image/jpeg"
-	_ "image/png"
 	"io"
 	"io/ioutil"
 	"log"
@@ -18,6 +17,8 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+
+	"github.com/kettek/apng"
 
 	"github.com/fsnotify/fsnotify"
 	"golang.org/x/image/draw"
@@ -120,6 +121,7 @@ func checkThumbnails() error {
 	}
 
 	log.Printf(" - Building %d thumbnails.", len(todoThumbs))
+	skipped := 0
 	for crc, p := range todoThumbs {
 		f, err := os.OpenFile(p, os.O_RDONLY, 0)
 		if err != nil {
@@ -127,10 +129,29 @@ func checkThumbnails() error {
 			continue
 		}
 		defer f.Close()
-		img, _, err := image.Decode(f)
+		img, format, err := image.Decode(f)
 		if err != nil {
 			errors = append(errors, err)
 			continue
+		}
+		if format == "apng" {
+			// If it is an APNG/PNG, decode it a second time to see if it is an APNG.
+			_, err := f.Seek(0, 0)
+			if err != nil {
+				errors = append(errors, err)
+				continue
+			}
+			a, err := apng.DecodeAll(f)
+			if err != nil {
+				errors = append(errors, err)
+				continue
+			}
+			if len(a.Frames) > 1 {
+				// It's an APNG, bail.
+				skipped++
+				continue
+			}
+			img = a.Frames[0].Image
 		}
 
 		// Cap to 400 height and shrink others accordingly.
@@ -165,8 +186,12 @@ func checkThumbnails() error {
 		}
 	}
 
+	if skipped > 0 {
+		log.Printf(" - %d skipped.\n", skipped)
+	}
+
 	if len(errors) > 0 {
-		log.Printf(" - %d errors:", len(errors))
+		log.Printf(" - %d errors:\n", len(errors))
 		for _, err := range errors {
 			log.Println(err)
 		}
