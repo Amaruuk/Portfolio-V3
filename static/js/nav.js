@@ -217,15 +217,32 @@ const Nav = {
     if (!target) {
       lightbox.classList.remove('-shown')
       lightbox.classList.add('-hidden')
+      document.getElementById('Lightbox_video').pause()
       return
     }
     lightbox.classList.remove('-hidden')
     lightbox.classList.add('-shown')
     if (target.tagName === 'IMG') {
+      document.getElementById('Lightbox_video').pause()
       document.getElementById('Lightbox_img').src = target.src
       document.getElementById('Lightbox_img').style.display = 'block'
       document.getElementById('Lightbox_video').style.display = 'none'
     } else if (target.tagName === 'VIDEO') {
+      if (target.controls) {
+        document.getElementById('Lightbox_video').setAttribute('controls', '')
+      } else {
+        document.getElementById('Lightbox_video').removeAttribute('controls')
+      }
+      if (target.autoplay) {
+        document.getElementById('Lightbox_video').setAttribute('autoplay', '')
+      } else {
+        document.getElementById('Lightbox_video').removeAttribute('autoplay')
+      }
+      if (target.muted) {
+        document.getElementById('Lightbox_video').setAttribute('muted', '')
+      } else {
+        document.getElementById('Lightbox_video').removeAttribute('muted')
+      }
       document.getElementById('Lightbox_video').src = target.src
       document.getElementById('Lightbox_video').style.display = 'block'
       document.getElementById('Lightbox_img').style.display = 'none'
