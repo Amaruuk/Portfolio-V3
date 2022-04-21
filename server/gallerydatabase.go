@@ -14,11 +14,14 @@ import (
 )
 
 type galleryItem struct {
-	Title       string
-	Description string
-	File        string
-	Year        string
-	Tags        []string
+	Title        string
+	Description  string
+	File         string
+	Year         string
+	Tags         []string
+	Unmuted      bool
+	NoAutoplay   bool
+	ShowControls bool
 }
 
 func (g galleryItem) Ext() string {

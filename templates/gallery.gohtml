@@ -4,7 +4,7 @@
   <div class="Gallery_item" x-title="{{.Title}}" x-year="{{.Year}}" x-description="{{.Description}}">
     <div class="Gallery_item_container">
       {{if eq ".webm" .Ext }}
-        <video autoplay muted loop class="Gallery_item_image" src="/art/{{.File}}"></video>
+        <video {{if not .NoAutoplay}}autoplay{{end}} {{if not .Unmuted}}muted{{end}} loop class="Gallery_item_image" {{if .ShowControls}}controls{{end}} src="/art/{{.File}}"></video>
       {{else}}
         <img class="Gallery_item_image" src="/art/{{.File}}">
       {{end}}
