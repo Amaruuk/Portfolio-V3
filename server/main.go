@@ -20,9 +20,12 @@ func main() {
 	r.HandleFunc("/api/gallery/{tags}", galleryAPIHandler)
 	r.HandleFunc("/api/gallery/", galleryAPIHandler)
 	r.HandleFunc("/api/gallery", galleryAPIHandler)
+	r.HandleFunc("/borbdex", borbdexHandler)
+	r.HandleFunc("/borbdex/", borbdexHandler)
 	// Set up our static path handlers.
 	r.PathPrefix("/art/").Handler(http.StripPrefix("/art/", http.FileServer(http.Dir("./art/"))))
 	r.PathPrefix("/thumbs/").Handler(http.StripPrefix("/thumbs/", http.FileServer(http.Dir("./thumbs/"))))
+	r.PathPrefix("/borbs/").Handler(http.StripPrefix("/borbs/", http.FileServer(http.Dir("./borbs/"))))
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 
 	h := cors.Default().Handler(r)
@@ -40,6 +43,13 @@ func main() {
 	}
 	// Run our database file watcher.
 	go watchDatabase()
+
+	// Load our borbdex.
+	if err := loadBorbdex(); err != nil {
+		log.Fatal(err)
+	}
+	// Run our borbdex file watcher.
+	go watchBorbdex()
 
 	srv := &http.Server{
 		Handler:      h,

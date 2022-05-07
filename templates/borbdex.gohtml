@@ -1,0 +1,84 @@
+{{define "borbdex"}}
+<!DOCTYPE html>
+<html>
+<head>
+  <!--<link rel="stylesheet" href="/css/debug.css"/>-->
+  <link rel="icon" type="image/png" href="/images/icon-16x16.png">
+  <link rel="stylesheet" href="/css/layout.css"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/fonts/righthand/style.css"/>
+  <link rel="stylesheet" href="/fonts/ubuntu/style.css"/>
+  <link rel="stylesheet" href="/fonts/ChineseRocksRg-Regular/style.css"/>
+  <link rel="stylesheet" href="/fonts/Saira_Semi_Condensed/style.css"/>
+  <title>Borbdex - BirdTooth Studio</title>
+  <style type='text/css'>
+  #Content {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    height: 100%;
+  }
+  #Borbdex {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 100%;
+    overflow: auto;
+  }
+  #Borbdex__Title {
+    font-size: 200%;
+    color: var(--fg-light);
+    text-align: center;
+    font-family: "ChineseRocksRg-Regular";
+    font-size: 5.5vh;
+  }
+  #Borbdex__Info {
+    font-size: 150%;
+    color: var(--fg-light);
+    text-align: center;
+  }
+  .Borb {
+    width: 8em;
+    height: 8em;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto auto;
+    text-align: center;
+    box-shadow: inset 0px 0px 16px 0px var(--fg-reddish);
+    margin: .5em;
+    padding: .5em;
+  }
+  .Borb img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    padding: 1em;
+    transition: .2s all;
+  }
+  .Borb:hover img {
+    padding: .5em;
+  }
+  .Borb__Title {
+    color: var(--fg-light);
+  }
+  .Borb__DOB {
+    color: var(--fg-dim);
+  }
+  </style>
+</head>
+<body id="{{.Location}}View">
+  <div id="Content">
+    <div id="Borbdex__Title">BORBDEX</div>
+    <div id="Borbdex__Info">An index of borbs for <a href="https://www.twitch.tv/birdtoothstudio">BirdToothStudio's streams on Twitch</a>!</div>
+    <div id="Borbdex">
+      {{range .Borbs}}
+        <div class="Borb">
+          <img src="/borbs/{{.File}}">
+          <span class="Borb__Title">{{.Title}}</span>
+          <span class="Borb__DOB">{{.DOB}}</span>
+        </div>
+      {{end}}
+    </div>
+  </div>
+</body>
+</html>
+{{end}}
