@@ -13,6 +13,7 @@ type Borb struct {
 	Title string `yaml:"Title"`
 	File  string `yaml:"File"`
 	DOB   string `yaml:"DOB"`
+	ID    string `yaml:"ID"`
 }
 
 type Borbdex struct {
