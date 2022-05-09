@@ -14,7 +14,8 @@ import (
 type Borb struct {
 	Title string `yaml:"Title"`
 	File  string `yaml:"File"`
-	DOB   string `yaml:"DOB"`
+	DOB   string `yaml:"DOB,omitempty"`
+	ID    string `yaml:"ID,omitempty"`
 }
 
 type Borbdex struct {
@@ -55,9 +56,15 @@ func main() {
 		}
 		if !exists {
 			//info, _ := file.Info()
+			title := file.Name()[:len(file.Name())-4]
+			// strip leading borb- if it exists.
+			if strings.HasPrefix(title, "borb-") {
+				title = title[len("borb-"):]
+			}
 
 			borbdex.Borbs = append(borbdex.Borbs, &Borb{
-				Title: file.Name()[:len(file.Name())-4],
+				Title: title,
+				ID:    title,
 				File:  file.Name(),
 				//DOB:   fmt.Sprintf("%s", info.ModTime()),
 			})
